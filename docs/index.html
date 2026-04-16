@@ -412,14 +412,18 @@
             </div>
         </div>
 
-        <!-- Правая колонка: портрет Анубиса (скрыт на mobile, фоновое лого вместо него) -->
+        <!-- Правая колонка: cinematic-видео (autoplay, muted, loop) с poster=anubis.jpg
+             для мгновенного показа пока качается. Скрыто на mobile (трафик + место). -->
         <div class="lg:col-span-5 hidden lg:flex items-center justify-center rellax" data-rellax-speed="-2">
             <div class="hero-portrait-wrap animate-float">
-                <img src="img/anubis.jpg"
-                     alt="AnubisWorld character"
-                     class="hero-portrait"
-                     fetchpriority="high"
-                     loading="eager">
+                <video class="hero-portrait"
+                       autoplay muted loop playsinline
+                       poster="img/anubis.jpg"
+                       preload="metadata"
+                       aria-label="AnubisWorld cinematic">
+                    <source src="img/welcome.mp4" type="video/mp4">
+                    <img src="img/anubis.jpg" alt="AnubisWorld character">
+                </video>
             </div>
         </div>
     </div>
