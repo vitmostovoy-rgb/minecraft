@@ -3,6 +3,7 @@
 Лендинг приватного Minecraft 1.12.2 Forge сервера AnubisWorld HiTech та лаунчера Nexora.
 
 **Live:** https://vitmostovoy-rgb.github.io/minecraft/
+**Telegram:** https://t.me/anubisworldoffc
 
 ## About
 
