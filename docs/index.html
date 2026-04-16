@@ -19,28 +19,47 @@
             theme: {
                 extend: {
                     colors: {
+                        // Палитра подобрана под арт с Анубисом:
+                        // brand = пурпурно-фиолетовая аура (доминанта)
+                        // egypt = бирюзово-неоновое свечение египетских декораций
+                        // amber = тёплый акцент (факелы)
                         brand: {
-                            50:  '#fffbeb',
-                            100: '#fef3c7',
-                            200: '#fde68a',
-                            300: '#fcd34d',
-                            400: '#fbbf24',
-                            500: '#f59e0b',
-                            600: '#d97706',
-                            700: '#b45309',
-                            800: '#92400e',
-                            900: '#78350f',
-                            950: '#3d1a00',
-                        },
-                        violet: {
+                            50:  '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
                             400: '#a78bfa',
                             500: '#8b5cf6',
                             600: '#7c3aed',
                             700: '#6d28d9',
-                            900: '#2e1065',
-                            950: '#1a0a3d',
+                            800: '#5b21b6',
+                            900: '#3b1574',
+                            950: '#1e0a4a',
                         },
-                        surface: { 800:'#100d0a', 900:'#0a0806', 950:'#060404' },
+                        violet: {
+                            400: '#c084fc',
+                            500: '#a855f7',
+                            600: '#9333ea',
+                            700: '#7e22ce',
+                            900: '#3b0764',
+                            950: '#1f0238',
+                        },
+                        egypt: {
+                            300: '#67e8f9',
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                            600: '#0891b2',
+                            700: '#0e7490',
+                            900: '#164e63',
+                        },
+                        amber: {
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        },
+                        // Тёмно-навигвый фон вместо чисто-чёрного
+                        surface: { 800:'#0c0a18', 900:'#070612', 950:'#040309' },
                     },
                     fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
                     animation: {
@@ -49,7 +68,7 @@
                     },
                     keyframes: {
                         float: { '0%,100%': { transform:'translateY(0)' }, '50%': { transform:'translateY(-12px)' } },
-                        glow:  { '0%': { boxShadow:'0 0 20px rgba(245,158,11,.2)' }, '100%': { boxShadow:'0 0 50px rgba(245,158,11,.5)' } },
+                        glow:  { '0%': { boxShadow:'0 0 20px rgba(139,92,246,.25)' }, '100%': { boxShadow:'0 0 50px rgba(139,92,246,.55)' } },
                     },
                 },
             },
@@ -61,23 +80,23 @@
     <style>
         body { font-family: 'Inter', system-ui, sans-serif; }
 
-        /* Золотая сетка вместо белой */
+        /* Фиолетовая сетка — в тон ауре Анубиса */
         .bg-grid {
             background-image:
-                linear-gradient(rgba(245,158,11,.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(245,158,11,.04) 1px, transparent 1px);
+                linear-gradient(rgba(139,92,246,.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(139,92,246,.05) 1px, transparent 1px);
             background-size: 60px 60px;
         }
 
-        /* Glass с тёплым оттенком */
+        /* Glass с фиолетовым оттенком */
         .glass {
-            background: rgba(245,158,11,.04);
+            background: rgba(139,92,246,.05);
             backdrop-filter: blur(16px);
-            border: 1px solid rgba(245,158,11,.12);
+            border: 1px solid rgba(139,92,246,.14);
         }
 
         .card-hover { transition: transform .3s, box-shadow .3s; }
-        .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(217,119,6,.2); }
+        .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(124,58,237,.25); }
 
         .btn-glow { position:relative; overflow:hidden; }
         .btn-glow::after {
@@ -96,9 +115,10 @@
             border-radius:50%;
             animation: particleFloat linear infinite;
         }
-        .particle.gold   { background: rgba(245,158,11,.5); }
-        .particle.orange { background: rgba(234,88,12,.4); }
-        .particle.violet { background: rgba(139,92,246,.35); }
+        /* Цвет частиц подобран под арт: пурпур, бирюза, тёплый янтарь */
+        .particle.violet { background: rgba(168,85,247,.55); box-shadow: 0 0 6px rgba(168,85,247,.6); }
+        .particle.cyan   { background: rgba(34,211,238,.5); box-shadow: 0 0 6px rgba(34,211,238,.5); }
+        .particle.amber  { background: rgba(251,191,36,.4); box-shadow: 0 0 6px rgba(251,191,36,.4); }
 
         @keyframes particleFloat {
             0%   { transform:translateY(100vh) scale(0); opacity:0; }
@@ -107,51 +127,52 @@
             100% { transform:translateY(-10vh) scale(1); opacity:0; }
         }
 
-        /* Золотая полоска под навбаром */
+        /* Полоса под навбаром: фиолетово-бирюзовая (мистика + неон) */
         nav::after {
             content:'';
             position:absolute; bottom:0; left:0; right:0; height:1px;
-            background: linear-gradient(90deg, transparent, rgba(245,158,11,.4), rgba(139,92,246,.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(168,85,247,.45), rgba(34,211,238,.35), transparent);
         }
 
-        /* Декоративные Egyptian-accent-линии на hero */
+        /* Декоративные линии в hero — пурпурно-бирюзовые */
         .hero-line {
             position:absolute;
             height:1px;
-            background: linear-gradient(90deg, transparent, rgba(245,158,11,.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(168,85,247,.35), transparent);
         }
 
         .lang-menu { display:none; }
         .lang-wrap:hover .lang-menu,
         .lang-wrap:focus-within .lang-menu { display:block; }
 
-        /* Золотое свечение текста */
+        /* Класс называется gold-text по историческим причинам, но цвета теперь
+           пурпурно-бирюзовые — под ауру Анубиса. (Имя оставлено чтобы не править i18n.) */
         .gold-text {
             color: transparent;
-            background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
+            background: linear-gradient(135deg, #c084fc 0%, #a855f7 50%, #22d3ee 100%);
             -webkit-background-clip: text;
             background-clip: text;
         }
         .violet-gold-text {
             color: transparent;
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 40%, #a78bfa 100%);
+            background: linear-gradient(135deg, #22d3ee 0%, #a855f7 50%, #fbbf24 100%);
             -webkit-background-clip: text;
             background-clip: text;
         }
 
-        /* Пульсирующая золотая граница */
+        /* Пульсирующая граница — фиолетовая */
         @keyframes borderPulse {
-            0%, 100% { border-color: rgba(245,158,11,.15); }
-            50%       { border-color: rgba(245,158,11,.35); }
+            0%, 100% { border-color: rgba(139,92,246,.18); }
+            50%       { border-color: rgba(168,85,247,.4); }
         }
         .border-pulse { animation: borderPulse 3s ease-in-out infinite; }
 
-        /* Новый круглый цветной логотип-эмблема (logo.jpg) — без инверсии */
+        /* Круглый цветной логотип-эмблема (logo.jpg). Кольцо и свечение — фиолетовые. */
         .brand-logo {
             border-radius: 50%;
             box-shadow:
-                0 0 0 2px rgba(245,158,11,0.35),
-                0 0 30px rgba(245,158,11,0.25),
+                0 0 0 2px rgba(168,85,247,0.45),
+                0 0 30px rgba(139,92,246,0.35),
                 inset 0 0 0 1px rgba(255,255,255,0.05);
             object-fit: cover;
         }
@@ -209,8 +230,9 @@
         .hero-portrait {
             border-radius: 1.5rem;
             box-shadow:
-                0 30px 80px rgba(139,92,246,.35),
-                0 0 0 1px rgba(245,158,11,.2);
+                0 30px 80px rgba(139,92,246,.4),
+                0 0 0 1px rgba(168,85,247,.3),
+                0 0 60px rgba(34,211,238,.15);
             max-height: 600px;
             width: 100%;
             object-fit: cover;
@@ -293,23 +315,25 @@
     <div class="stars rellax" data-rellax-speed="-1" id="heroStars"></div>
 
     <!-- Парящие изометрические Minecraft-кубы — декорация, parallax -->
+    <!-- Цвета кубов: бирюза = неон египетских декораций, фиолет = аура,
+         янтарь = тёплый акцент-факел -->
     <svg class="mc-cube rellax" data-rellax-speed="-4" style="top:18%;left:6%;width:60px;height:60px;" viewBox="0 0 100 100" aria-hidden="true">
-        <polygon points="50,10 90,30 50,50 10,30" fill="#fbbf24" opacity=".9"/>
-        <polygon points="10,30 50,50 50,90 10,70" fill="#d97706"/>
-        <polygon points="50,50 90,30 90,70 50,90" fill="#92400e"/>
+        <polygon points="50,10 90,30 50,50 10,30" fill="#a855f7" opacity=".9"/>
+        <polygon points="10,30 50,50 50,90 10,70" fill="#7e22ce"/>
+        <polygon points="50,50 90,30 90,70 50,90" fill="#3b0764"/>
     </svg>
     <svg class="mc-cube rellax" data-rellax-speed="2" style="top:62%;left:9%;width:42px;height:42px;" viewBox="0 0 100 100" aria-hidden="true">
-        <polygon points="50,10 90,30 50,50 10,30" fill="#a78bfa" opacity=".9"/>
-        <polygon points="10,30 50,50 50,90 10,70" fill="#7c3aed"/>
-        <polygon points="50,50 90,30 90,70 50,90" fill="#4c1d95"/>
-    </svg>
-    <svg class="mc-cube rellax" data-rellax-speed="-3" style="top:30%;right:8%;width:50px;height:50px;" viewBox="0 0 100 100" aria-hidden="true">
         <polygon points="50,10 90,30 50,50 10,30" fill="#22d3ee" opacity=".85"/>
         <polygon points="10,30 50,50 50,90 10,70" fill="#0891b2"/>
         <polygon points="50,50 90,30 90,70 50,90" fill="#155e75"/>
     </svg>
+    <svg class="mc-cube rellax" data-rellax-speed="-3" style="top:30%;right:8%;width:50px;height:50px;" viewBox="0 0 100 100" aria-hidden="true">
+        <polygon points="50,10 90,30 50,50 10,30" fill="#c084fc" opacity=".9"/>
+        <polygon points="10,30 50,50 50,90 10,70" fill="#9333ea"/>
+        <polygon points="50,50 90,30 90,70 50,90" fill="#4c1d95"/>
+    </svg>
     <svg class="mc-cube rellax" data-rellax-speed="3" style="bottom:15%;right:14%;width:36px;height:36px;" viewBox="0 0 100 100" aria-hidden="true">
-        <polygon points="50,10 90,30 50,50 10,30" fill="#fbbf24" opacity=".8"/>
+        <polygon points="50,10 90,30 50,50 10,30" fill="#fbbf24" opacity=".75"/>
         <polygon points="10,30 50,50 50,90 10,70" fill="#d97706"/>
         <polygon points="50,50 90,30 90,70 50,90" fill="#92400e"/>
     </svg>
@@ -400,18 +424,18 @@
                 </div>
             </div>
 
-            <!-- TechnoMagic — пурпурный -->
+            <!-- TechnoMagic — бирюзово-неоновый (мистика + египетский неон) -->
             <div class="glass rounded-2xl p-8 card-hover relative group">
-                <div class="absolute inset-0 rounded-2xl bg-gradient-to-b from-violet-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="absolute inset-0 rounded-2xl bg-gradient-to-b from-egypt-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <div class="relative">
-                    <div class="w-14 h-14 rounded-xl bg-violet-500/15 flex items-center justify-center mb-6">
-                        <svg class="w-7 h-7 text-violet-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"/></svg>
+                    <div class="w-14 h-14 rounded-xl bg-egypt-500/15 flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-egypt-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"/></svg>
                     </div>
                     <h3 class="text-xl font-bold mb-2">TechnoMagic</h3>
-                    <p class="text-sm text-violet-500/70 mb-4">Tech + Magic Fusion</p>
+                    <p class="text-sm text-egypt-500/80 mb-4">Tech + Magic Fusion</p>
                     <p class="text-gray-300 leading-relaxed" data-i18n="server_technomagic_desc"></p>
-                    <div class="mt-6 flex items-center gap-2 text-violet-400 text-sm font-medium">
-                        <span class="w-2 h-2 rounded-full bg-violet-400"></span>
+                    <div class="mt-6 flex items-center gap-2 text-egypt-400 text-sm font-medium">
+                        <span class="w-2 h-2 rounded-full bg-egypt-400"></span>
                         <span data-i18n="server_coming_soon"></span>
                     </div>
                 </div>
@@ -548,13 +572,13 @@ const i18n = {
         stat_players: "Игроков",
         stat_tps: "Средний TPS",
         stat_uptime: "Аптайм",
-        servers_title: 'Выбери свой <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-500">путь</span>',
+        servers_title: 'Выбери свой <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-egypt-400">путь</span>',
         server_hitech_desc: "Бесконечная энергия, автоматизация и высокие технологии. Строй огромные фабрики и доминируй с помощью техники.",
         server_hardtech_desc: "Настоящий хардкор с GregTech. Сложные цепочки крафта, продуманные механики. Только для смелых.",
         server_technomagic_desc: "Идеальное сочетание магии и электрических механизмов. Два мира, объединённых в одном.",
         server_open_beta: "Открытая бета",
         server_coming_soon: "Скоро",
-        features_title: 'Почему выбирают <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-violet-400">именно нас?</span>',
+        features_title: 'Почему выбирают <span class="text-transparent bg-clip-text bg-gradient-to-r from-egypt-400 to-violet-400">именно нас?</span>',
         feat_hardware_title: "Мощное железо",
         feat_hardware_desc: "Выделенные серверы с высоким TPS. Без лагов, без компромиссов.",
         feat_economy_title: "Баланс экономики",
@@ -564,11 +588,11 @@ const i18n = {
         feat_support_title: "Поддержка 24/7",
         feat_support_desc: "Отзывчивая команда модераторов всегда готова помочь.",
         dl_badge: "Начни играть",
-        dl_title: 'Скачать <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-500">лаунчер</span>',
+        dl_title: 'Скачать <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-egypt-400">лаунчер</span>',
         dl_desc: "Установка в один клик. Лаунчер автоматически скачает Forge, моды и конфиги. Просто введи ник и играй.",
         dl_btn: "Скачать для Windows",
         dl_requirements: "Требуется Java 8 · Windows 10+",
-        community_title: 'Присоединяйся к <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-violet-400">сообществу</span>',
+        community_title: 'Присоединяйся к <span class="text-transparent bg-clip-text bg-gradient-to-r from-egypt-400 to-violet-400">сообществу</span>',
         community_discord_sub: "Чат, голос, ивенты",
         community_telegram_sub: "Новости и обновления",
         footer_text: "Сделано с любовью к Minecraft сообществу",
@@ -585,13 +609,13 @@ const i18n = {
         stat_players: "Гравців",
         stat_tps: "Середній TPS",
         stat_uptime: "Аптайм",
-        servers_title: 'Обери свій <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-500">шлях</span>',
+        servers_title: 'Обери свій <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-egypt-400">шлях</span>',
         server_hitech_desc: "Безмежна енергія, автоматизація та високі технології. Будуй величезні фабрики і домінуй за допомогою техніки.",
         server_hardtech_desc: "Справжній хардкор з GregTech. Складні ланцюжки крафту, продумані механіки. Тільки для сміливих.",
         server_technomagic_desc: "Ідеальне поєднання магії та електричних механізмів. Два світи, об'єднані в одному.",
         server_open_beta: "Відкрита бета",
         server_coming_soon: "Незабаром",
-        features_title: 'Чому обирають <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-violet-400">саме нас?</span>',
+        features_title: 'Чому обирають <span class="text-transparent bg-clip-text bg-gradient-to-r from-egypt-400 to-violet-400">саме нас?</span>',
         feat_hardware_title: "Потужне залізо",
         feat_hardware_desc: "Виділені сервери з високим TPS. Без лагів, без компромісів.",
         feat_economy_title: "Баланс економіки",
@@ -601,11 +625,11 @@ const i18n = {
         feat_support_title: "Підтримка 24/7",
         feat_support_desc: "Чуйна команда модераторів завжди готова допомогти.",
         dl_badge: "Почни грати",
-        dl_title: 'Завантажити <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-500">лаунчер</span>',
+        dl_title: 'Завантажити <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-egypt-400">лаунчер</span>',
         dl_desc: "Встановлення в один клік. Лаунчер автоматично завантажить Forge, моди та конфіги. Просто введи нік та грай.",
         dl_btn: "Завантажити для Windows",
         dl_requirements: "Потрібна Java 8 · Windows 10+",
-        community_title: 'Приєднуйся до <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-violet-400">спільноти</span>',
+        community_title: 'Приєднуйся до <span class="text-transparent bg-clip-text bg-gradient-to-r from-egypt-400 to-violet-400">спільноти</span>',
         community_discord_sub: "Чат, голос, івенти",
         community_telegram_sub: "Новини та оновлення",
         footer_text: "Зроблено з любов'ю до Minecraft спільноти",
@@ -622,13 +646,13 @@ const i18n = {
         stat_players: "Players",
         stat_tps: "Avg TPS",
         stat_uptime: "Uptime",
-        servers_title: 'Choose Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-500">Path</span>',
+        servers_title: 'Choose Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-egypt-400">Path</span>',
         server_hitech_desc: "Endless energy, automation and high technology. Build massive factories and dominate with tech.",
         server_hardtech_desc: "Real hardcore with GregTech. Complex crafting chains, thoughtful mechanics. Only for the brave.",
         server_technomagic_desc: "Perfect combination of magic and electrical mechanisms. Two worlds united in one experience.",
         server_open_beta: "Open Beta",
         server_coming_soon: "Coming Soon",
-        features_title: 'Why Choose <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-violet-400">Us?</span>',
+        features_title: 'Why Choose <span class="text-transparent bg-clip-text bg-gradient-to-r from-egypt-400 to-violet-400">Us?</span>',
         feat_hardware_title: "Powerful Hardware",
         feat_hardware_desc: "Dedicated servers with high TPS. No lag, no compromises.",
         feat_economy_title: "Balanced Economy",
@@ -638,11 +662,11 @@ const i18n = {
         feat_support_title: "24/7 Support",
         feat_support_desc: "Responsive moderation team ready to help anytime.",
         dl_badge: "Get Started",
-        dl_title: 'Download <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-500">Launcher</span>',
+        dl_title: 'Download <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-egypt-400">Launcher</span>',
         dl_desc: "One click install. Our launcher automatically downloads Forge, mods, and configs. Just enter your nickname and play.",
         dl_btn: "Download for Windows",
         dl_requirements: "Requires Java 8 · Windows 10+",
-        community_title: 'Join the <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-violet-400">Community</span>',
+        community_title: 'Join the <span class="text-transparent bg-clip-text bg-gradient-to-r from-egypt-400 to-violet-400">Community</span>',
         community_discord_sub: "Chat, voice, events",
         community_telegram_sub: "News & updates",
         footer_text: "Made with passion for Minecraft community",
@@ -659,13 +683,13 @@ const i18n = {
         stat_players: "Spieler",
         stat_tps: "Durchschn. TPS",
         stat_uptime: "Verfügbarkeit",
-        servers_title: 'Wähle deinen <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-500">Weg</span>',
+        servers_title: 'Wähle deinen <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-egypt-400">Weg</span>',
         server_hitech_desc: "Endlose Energie, Automatisierung und Hochtechnologie. Baue riesige Fabriken und dominiere mit Technik.",
         server_hardtech_desc: "Echtes Hardcore mit GregTech. Komplexe Crafting-Ketten, durchdachte Mechaniken. Nur für Mutige.",
         server_technomagic_desc: "Perfekte Kombination aus Magie und elektrischen Mechanismen. Zwei Welten vereint in einem Erlebnis.",
         server_open_beta: "Offene Beta",
         server_coming_soon: "Demnächst",
-        features_title: 'Warum <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-violet-400">uns wählen?</span>',
+        features_title: 'Warum <span class="text-transparent bg-clip-text bg-gradient-to-r from-egypt-400 to-violet-400">uns wählen?</span>',
         feat_hardware_title: "Leistungsstarke Hardware",
         feat_hardware_desc: "Dedizierte Server mit hohem TPS. Kein Lag, keine Kompromisse.",
         feat_economy_title: "Ausgewogene Wirtschaft",
@@ -675,11 +699,11 @@ const i18n = {
         feat_support_title: "24/7 Support",
         feat_support_desc: "Reaktionsschnelles Moderationsteam, jederzeit bereit zu helfen.",
         dl_badge: "Jetzt starten",
-        dl_title: 'Launcher <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-500">herunterladen</span>',
+        dl_title: 'Launcher <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-egypt-400">herunterladen</span>',
         dl_desc: "Ein-Klick-Installation. Unser Launcher lädt automatisch Forge, Mods und Configs herunter. Einfach Nickname eingeben und spielen.",
         dl_btn: "Für Windows herunterladen",
         dl_requirements: "Erfordert Java 8 · Windows 10+",
-        community_title: 'Tritt der <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-violet-400">Community</span> bei',
+        community_title: 'Tritt der <span class="text-transparent bg-clip-text bg-gradient-to-r from-egypt-400 to-violet-400">Community</span> bei',
         community_discord_sub: "Chat, Voice, Events",
         community_telegram_sub: "News & Updates",
         footer_text: "Mit Leidenschaft für die Minecraft-Community gemacht",
@@ -696,13 +720,13 @@ const i18n = {
         stat_players: "Graczy",
         stat_tps: "Średni TPS",
         stat_uptime: "Dostępność",
-        servers_title: 'Wybierz swoją <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-500">ścieżkę</span>',
+        servers_title: 'Wybierz swoją <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-egypt-400">ścieżkę</span>',
         server_hitech_desc: "Nieskończona energia, automatyzacja i zaawansowana technologia. Buduj ogromne fabryki i dominuj dzięki technice.",
         server_hardtech_desc: "Prawdziwy hardcore z GregTech. Złożone łańcuchy craftingu, przemyślane mechaniki. Tylko dla odważnych.",
         server_technomagic_desc: "Idealne połączenie magii i mechanizmów elektrycznych. Dwa światy zjednoczone w jednym doświadczeniu.",
         server_open_beta: "Otwarta beta",
         server_coming_soon: "Wkrótce",
-        features_title: 'Dlaczego właśnie <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-violet-400">my?</span>',
+        features_title: 'Dlaczego właśnie <span class="text-transparent bg-clip-text bg-gradient-to-r from-egypt-400 to-violet-400">my?</span>',
         feat_hardware_title: "Wydajny sprzęt",
         feat_hardware_desc: "Dedykowane serwery z wysokim TPS. Bez lagów, bez kompromisów.",
         feat_economy_title: "Zbalansowana ekonomia",
@@ -712,11 +736,11 @@ const i18n = {
         feat_support_title: "Wsparcie 24/7",
         feat_support_desc: "Responsywny zespół moderatorów zawsze gotowy do pomocy.",
         dl_badge: "Zacznij grać",
-        dl_title: 'Pobierz <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-500">launcher</span>',
+        dl_title: 'Pobierz <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-egypt-400">launcher</span>',
         dl_desc: "Instalacja jednym kliknięciem. Nasz launcher automatycznie pobiera Forge, mody i konfiguracje. Po prostu wpisz nick i graj.",
         dl_btn: "Pobierz dla Windows",
         dl_requirements: "Wymaga Java 8 · Windows 10+",
-        community_title: 'Dołącz do <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-violet-400">społeczności</span>',
+        community_title: 'Dołącz do <span class="text-transparent bg-clip-text bg-gradient-to-r from-egypt-400 to-violet-400">społeczności</span>',
         community_discord_sub: "Czat, głos, eventy",
         community_telegram_sub: "Aktualności i aktualizacje",
         footer_text: "Stworzone z pasją dla społeczności Minecraft",
@@ -791,7 +815,7 @@ statObserver.observe(statEl);
 
 // Частицы трёх цветов — золото, оранж, фиолет
 const container = document.getElementById('particles');
-const particleClasses = ['gold', 'orange', 'violet'];
+const particleClasses = ['violet', 'cyan', 'amber'];
 for (let i = 0; i < 35; i++) {
     const p = document.createElement('div');
     p.className = 'particle ' + particleClasses[i % 3];
