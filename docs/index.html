@@ -648,6 +648,29 @@
                 <span data-i18n="dl_btn"></span>
             </a>
             <p class="text-xs text-gray-500 mt-4" data-i18n="dl_requirements"></p>
+
+            <div class="mt-6 pt-5 border-t border-brand-500/15 space-y-3 text-left">
+                <a href="https://www.virustotal.com/gui/file/244cd0af34991c12d79e26651740a63ea8be6a680ea59aa8c81840132ed79293/details"
+                   target="_blank" rel="noopener"
+                   class="flex items-center gap-2 text-xs text-emerald-400 hover:text-emerald-300 transition">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    <span data-i18n="dl_verified"></span>
+                </a>
+                <details class="group">
+                    <summary class="flex items-center gap-2 text-xs text-gray-400 hover:text-gray-300 cursor-pointer list-none transition">
+                        <svg class="w-4 h-4 flex-shrink-0 transition-transform group-open:rotate-90" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                        <span data-i18n="dl_warn_title"></span>
+                    </summary>
+                    <p class="text-xs text-gray-500 leading-relaxed mt-3 pl-6" data-i18n-html="dl_warn_body"></p>
+                </details>
+                <details class="group">
+                    <summary class="flex items-center gap-2 text-xs text-gray-400 hover:text-gray-300 cursor-pointer list-none transition">
+                        <svg class="w-4 h-4 flex-shrink-0 transition-transform group-open:rotate-90" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                        <span data-i18n="dl_hash_title"></span>
+                    </summary>
+                    <code class="block text-[10px] font-mono text-gray-500 break-all mt-3 pl-6 leading-relaxed">244cd0af34991c12d79e26651740a63ea8be6a680ea59aa8c81840132ed79293</code>
+                </details>
+            </div>
         </div>
     </div>
 </section>
@@ -787,6 +810,10 @@ const i18n = {
         dl_desc: "Установка в один клик. Лаунчер автоматически скачает Forge, моды и конфиги. Просто введи ник и играй.",
         dl_btn: "Скачать для Windows",
         dl_requirements: "Java скачивается автоматически · Windows 10+",
+        dl_verified: "Проверено VirusTotal · 70+ антивирусов",
+        dl_warn_title: "Браузер блокирует загрузку?",
+        dl_warn_body: "Лаунчер не подписан сертификатом, поэтому Chrome / SmartScreen могут показать предупреждение. Это <strong>не вирус</strong> — мы небольшой open-source проект. Жми <strong>Сохранить</strong> → <strong>Запустить в любом случае</strong>. Файл также доступен напрямую с <a href='https://github.com/damanoreshkan-beep/anubis-launcher/releases/latest' target='_blank' rel='noopener' class='text-brand-400 hover:text-brand-300 underline'>GitHub Releases</a>.",
+        dl_hash_title: "SHA-256 для проверки целостности",
         community_title: 'Присоединяйся к <span class="text-transparent bg-clip-text bg-gradient-to-r from-egypt-400 to-violet-400">сообществу</span>',
         community_discord_sub: "Чат, голос, ивенты",
         community_telegram_sub: "Новости и обновления",
@@ -854,6 +881,10 @@ const i18n = {
         dl_desc: "Встановлення в один клік. Лаунчер автоматично завантажить Forge, моди та конфіги. Просто введи нік та грай.",
         dl_btn: "Завантажити для Windows",
         dl_requirements: "Java завантажується автоматично · Windows 10+",
+        dl_verified: "Перевірено VirusTotal · 70+ антивірусів",
+        dl_warn_title: "Браузер блокує завантаження?",
+        dl_warn_body: "Лаунчер не підписаний сертифікатом, тому Chrome / SmartScreen можуть показати попередження. Це <strong>не вірус</strong> — ми невеликий open-source проєкт. Натисни <strong>Зберегти</strong> → <strong>Все одно запустити</strong>. Файл також доступний напряму з <a href='https://github.com/damanoreshkan-beep/anubis-launcher/releases/latest' target='_blank' rel='noopener' class='text-brand-400 hover:text-brand-300 underline'>GitHub Releases</a>.",
+        dl_hash_title: "SHA-256 для перевірки цілісності",
         community_title: 'Приєднуйся до <span class="text-transparent bg-clip-text bg-gradient-to-r from-egypt-400 to-violet-400">спільноти</span>',
         community_discord_sub: "Чат, голос, івенти",
         community_telegram_sub: "Новини та оновлення",
@@ -921,6 +952,10 @@ const i18n = {
         dl_desc: "One click install. Our launcher automatically downloads Forge, mods, and configs. Just enter your nickname and play.",
         dl_btn: "Download for Windows",
         dl_requirements: "Java is downloaded automatically · Windows 10+",
+        dl_verified: "Verified by VirusTotal · 70+ antivirus engines",
+        dl_warn_title: "Browser blocks the download?",
+        dl_warn_body: "The launcher is unsigned, so Chrome / SmartScreen may warn you. This is <strong>not a virus</strong> — we're a small open-source project. Click <strong>Keep</strong> → <strong>Run anyway</strong>. The file is also available directly from <a href='https://github.com/damanoreshkan-beep/anubis-launcher/releases/latest' target='_blank' rel='noopener' class='text-brand-400 hover:text-brand-300 underline'>GitHub Releases</a>.",
+        dl_hash_title: "SHA-256 for integrity verification",
         community_title: 'Join the <span class="text-transparent bg-clip-text bg-gradient-to-r from-egypt-400 to-violet-400">Community</span>',
         community_discord_sub: "Chat, voice, events",
         community_telegram_sub: "News & updates",
@@ -988,6 +1023,10 @@ const i18n = {
         dl_desc: "Ein-Klick-Installation. Unser Launcher lädt automatisch Forge, Mods und Configs herunter. Einfach Nickname eingeben und spielen.",
         dl_btn: "Für Windows herunterladen",
         dl_requirements: "Java wird automatisch heruntergeladen · Windows 10+",
+        dl_verified: "Geprüft von VirusTotal · 70+ Antivirenprogramme",
+        dl_warn_title: "Browser blockiert den Download?",
+        dl_warn_body: "Der Launcher ist unsigniert, daher können Chrome / SmartScreen eine Warnung anzeigen. Das ist <strong>kein Virus</strong> — wir sind ein kleines Open-Source-Projekt. Klicke <strong>Behalten</strong> → <strong>Trotzdem ausführen</strong>. Die Datei ist auch direkt von <a href='https://github.com/damanoreshkan-beep/anubis-launcher/releases/latest' target='_blank' rel='noopener' class='text-brand-400 hover:text-brand-300 underline'>GitHub Releases</a> verfügbar.",
+        dl_hash_title: "SHA-256 zur Integritätsprüfung",
         community_title: 'Tritt der <span class="text-transparent bg-clip-text bg-gradient-to-r from-egypt-400 to-violet-400">Community</span> bei',
         community_discord_sub: "Chat, Voice, Events",
         community_telegram_sub: "News & Updates",
@@ -1055,6 +1094,10 @@ const i18n = {
         dl_desc: "Instalacja jednym kliknięciem. Nasz launcher automatycznie pobiera Forge, mody i konfiguracje. Po prostu wpisz nick i graj.",
         dl_btn: "Pobierz dla Windows",
         dl_requirements: "Java pobiera się automatycznie · Windows 10+",
+        dl_verified: "Zweryfikowano przez VirusTotal · 70+ antywirusów",
+        dl_warn_title: "Przeglądarka blokuje pobieranie?",
+        dl_warn_body: "Launcher nie jest podpisany certyfikatem, więc Chrome / SmartScreen mogą pokazać ostrzeżenie. To <strong>nie wirus</strong> — jesteśmy małym projektem open-source. Kliknij <strong>Zachowaj</strong> → <strong>Uruchom mimo to</strong>. Plik jest również dostępny bezpośrednio z <a href='https://github.com/damanoreshkan-beep/anubis-launcher/releases/latest' target='_blank' rel='noopener' class='text-brand-400 hover:text-brand-300 underline'>GitHub Releases</a>.",
+        dl_hash_title: "SHA-256 do weryfikacji integralności",
         community_title: 'Dołącz do <span class="text-transparent bg-clip-text bg-gradient-to-r from-egypt-400 to-violet-400">społeczności</span>',
         community_discord_sub: "Czat, głos, eventy",
         community_telegram_sub: "Aktualności i aktualizacje",
