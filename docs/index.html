@@ -294,6 +294,9 @@
             }
         }
     </style>
+    <!-- AnubisWorld auth widget — single source of truth for site + launcher.
+         Source: https://github.com/damanoreshkan-beep/anubis-auth-widget -->
+    <script type="module" src="https://damanoreshkan-beep.github.io/anubis-auth-widget/anubis-auth.js"></script>
 </head>
 <body class="bg-surface-950 text-white antialiased">
 
@@ -331,6 +334,11 @@
                     <button onclick="setLang('pl')" class="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-300 hover:text-brand-300 hover:bg-brand-500/10 transition">🇵🇱 Polski</button>
                 </div>
             </div>
+            <anubis-auth
+                class="hidden sm:inline-block"
+                supabase-url="https://ckfinpywlpllvhvzagnw.supabase.co"
+                supabase-key="sb_publishable_Bl6csDnCJ5LIJsIsCafMYQ_5zwLTgvR"
+                lang="ru"></anubis-auth>
             <a href="#download" class="hidden sm:inline-flex btn-glow items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition shadow-lg shadow-brand-600/30">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3"/></svg>
                 <span data-i18n="nav_download"></span>
@@ -1157,6 +1165,10 @@ function applyLang(lang) {
     });
     document.getElementById('langFlag').textContent = langMeta[lang].flag;
     document.getElementById('langLabel').textContent = langMeta[lang].label;
+    // Forward locale to the auth widget. Site uses 'ua' for Ukrainian; widget expects 'uk'.
+    document.querySelectorAll('anubis-auth').forEach(el => {
+        el.setAttribute('lang', lang === 'ua' ? 'uk' : lang);
+    });
 }
 
 function setLang(lang) {
