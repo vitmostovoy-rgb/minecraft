@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body { font-family: Inter, system-ui, sans-serif; }
+
+/* Site-only scenery layered on top of the DS palette. */
+.bg-grid {
+    background-image:
+        linear-gradient(rgba(139,92,246,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139,92,246,.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+}
+
+.violet-gold-text {
+    color: transparent;
+    background: linear-gradient(135deg, #22d3ee 0%, #a855f7 50%, #fbbf24 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
