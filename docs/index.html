@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AnubisWorld — Modded Minecraft Servers</title>
 
+    <!-- Hero animation FOUC guard: hide reveal targets only when JS is
+         active and motion is allowed, and never leave them hidden if the
+         Motion module fails to load. Must run before first paint. -->
+    <script>
+        (function () {
+            var d = document.documentElement;
+            if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            d.classList.add('js-anim');
+            setTimeout(function () {
+                if (!d.hasAttribute('data-anim-ready')) d.classList.remove('js-anim');
+            }, 2500);
+        })();
+    </script>
+
     <!-- Social preview (OG / Twitter) -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="AnubisWorld — Modded Minecraft Servers">
@@ -19,6 +33,7 @@
          purged output. Rebuild with `npm run build:css` after editing
          classes in this file. -->
     <link rel="stylesheet" href="site.css">
+    <link rel="modulepreload" href="vendor/motion.min.js">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" href="img/logo.jpg" type="image/jpeg">
@@ -48,6 +63,12 @@
 
         .fade-section { opacity:0; transform:translateY(30px); transition:opacity .7s,transform .7s; }
         .fade-section.visible { opacity:1; transform:translateY(0); }
+
+        /* Hero entrance: kept invisible until Motion reveals them. Scoped
+           to .js-anim (added only when JS runs and motion is allowed), so
+           no-JS and prefers-reduced-motion users always see content. */
+        .js-anim [data-reveal],
+        .js-anim [data-reveal-scale] { opacity: 0; }
 
         .particles { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
         .particle {
@@ -412,14 +433,14 @@
     <div class="relative z-10 max-w-6xl mx-auto px-4 grid lg:grid-cols-12 gap-10 items-center">
         <!-- Левая колонка: текст + CTA -->
         <div class="lg:col-span-7 text-center lg:text-left">
-            <div class="animate-float mb-6 inline-block lg:hidden">
+            <div class="animate-float mb-6 inline-block lg:hidden" data-reveal>
                 <img src="img/logo.jpg" alt="AnubisWorld" class="w-24 h-24 mx-auto brand-logo animate-glow">
             </div>
-            <h1 class="text-5xl sm:text-7xl font-black tracking-tight mb-6 leading-tight">
+            <h1 class="text-5xl sm:text-7xl font-black tracking-tight mb-6 leading-tight" data-reveal>
                 Anubis<span class="gold-text">World</span>
             </h1>
-            <p class="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed" data-i18n-html="hero_desc"></p>
-            <div class="flex flex-col sm:flex-row items-center lg:justify-start justify-center gap-4">
+            <p class="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed" data-reveal data-i18n-html="hero_desc"></p>
+            <div class="flex flex-col sm:flex-row items-center lg:justify-start justify-center gap-4" data-reveal>
                 <a href="#download" class="btn-glow inline-flex items-center gap-2 bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-700 hover:to-brand-600 text-white font-semibold px-7 py-3.5 rounded-xl transition shadow-lg shadow-brand-600/30">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3"/></svg>
                     <span data-i18n="hero_btn_download"></span>
@@ -433,7 +454,7 @@
 
         <!-- Правая колонка: cinematic-видео (autoplay, muted, loop) с poster=anubis.jpg
              для мгновенного показа пока качается. Скрыто на mobile (трафик + место). -->
-        <div class="lg:col-span-5 hidden lg:flex items-center justify-center rellax" data-rellax-speed="-2">
+        <div class="lg:col-span-5 hidden lg:flex items-center justify-center rellax" data-rellax-speed="-2" data-reveal-scale>
             <div class="hero-portrait-wrap animate-float">
                 <video class="hero-portrait"
                        autoplay muted loop playsinline
@@ -1232,17 +1253,35 @@ if (starsContainer) {
 }
 </script>
 
-<!-- Parallax library: Rellax (~1.4 KB, MIT) -->
-<script src="https://cdn.jsdelivr.net/npm/rellax@1.12.1/rellax.min.js"></script>
-<script>
-    if (typeof Rellax !== 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        new Rellax('.rellax', {
-            speed: -2,
-            center: false,
-            round: true,
-            vertical: true,
-            horizontal: false
-        });
+<!-- Motion (self-hosted, WAAPI hybrid engine) — hero entrance reveal +
+     scroll-linked parallax. Replaces Rellax; no runtime CDN. Bundle is
+     built from src/motion-entry.js via `npm run build:motion`. -->
+<script type="module">
+    import { animate, scroll, stagger } from './vendor/motion.min.js'
+    // Tell the FOUC guard (in <head>) the module is alive.
+    document.documentElement.setAttribute('data-anim-ready', '')
+
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const hero = document.querySelector('section')
+
+        // Staggered entrance for the hero text column.
+        animate('[data-reveal]', { opacity: [0, 1], y: [24, 0] },
+            { duration: 0.7, delay: stagger(0.1), ease: [0.16, 1, 0.3, 1] })
+
+        // Portrait fades and settles in alongside the text.
+        animate('[data-reveal-scale]', { opacity: [0, 1], scale: [0.94, 1] },
+            { duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] })
+
+        // Scroll-linked parallax for the decorative layers (was Rellax).
+        // Each layer's data-rellax-speed drives how far it drifts as the
+        // hero scrolls out of view.
+        document.querySelectorAll('[data-rellax-speed]').forEach((el) => {
+            const speed = parseFloat(el.getAttribute('data-rellax-speed')) || 0
+            scroll(
+                animate(el, { y: [0, speed * 40] }, { ease: 'linear' }),
+                { target: hero, offset: ['start start', 'end start'] }
+            )
+        })
     }
 </script>
 </body>
