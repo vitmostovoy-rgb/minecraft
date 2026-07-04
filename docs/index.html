@@ -13,70 +13,12 @@
     <meta property="og:url" content="https://vitmostovoy-rgb.github.io/minecraft/">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="img/anubis2.jpg">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        // This config mirrors anubis-ds tokens.json (the canonical
-        // source of truth — see damanoreshkan-beep/anubis-ds). We
-        // keep it inline because the page uses Tailwind's CDN
-        // runtime build, which can't `require()` an npm preset.
-        // CSS variables and theme classes (.glass / .btn-glow /
-        // .gold-text / .card-hover) come from the DS over a <link>
-        // in <head>, so they always match this palette.
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50:  '#f5f3ff',
-                            100: '#ede9fe',
-                            200: '#ddd6fe',
-                            300: '#c4b5fd',
-                            400: '#a78bfa',
-                            500: '#8b5cf6',
-                            600: '#7c3aed',
-                            700: '#6d28d9',
-                            800: '#5b21b6',
-                            900: '#3b1574',
-                            950: '#1e0a4a',
-                        },
-                        violet: {
-                            400: '#c084fc',
-                            500: '#a855f7',
-                            600: '#9333ea',
-                            700: '#7e22ce',
-                            900: '#3b0764',
-                            950: '#1f0238',
-                        },
-                        egypt: {
-                            300: '#67e8f9',
-                            400: '#22d3ee',
-                            500: '#06b6d4',
-                            600: '#0891b2',
-                            700: '#0e7490',
-                            900: '#164e63',
-                        },
-                        amber: {
-                            300: '#fcd34d',
-                            400: '#fbbf24',
-                            500: '#f59e0b',
-                            600: '#d97706',
-                        },
-                        // Тёмно-навигвый фон вместо чисто-чёрного
-                        surface: { 800:'#0c0a18', 900:'#070612', 950:'#040309' },
-                    },
-                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
-                    animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'glow':  'glow 2s ease-in-out infinite alternate',
-                    },
-                    keyframes: {
-                        float: { '0%,100%': { transform:'translateY(0)' }, '50%': { transform:'translateY(-12px)' } },
-                        glow:  { '0%': { boxShadow:'0 0 20px rgba(139,92,246,.25)' }, '100%': { boxShadow:'0 0 50px rgba(139,92,246,.55)' } },
-                    },
-                },
-            },
-        }
-    </script>
+    <!-- Tailwind is compiled ahead of time into site.css (Tailwind CLI +
+         the shared @anubis/ds preset — the canonical token source). No
+         runtime CDN compiler: faster first paint, no production warning,
+         purged output. Rebuild with `npm run build:css` after editing
+         classes in this file. -->
+    <link rel="stylesheet" href="site.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" href="img/logo.jpg" type="image/jpeg">
@@ -855,11 +797,7 @@ const i18n = {
         nav_community: "Сообщество",
         hero_desc: 'Качественные модовые серверы Minecraft, где <span class="text-brand-300 font-medium">технологии и магия становятся единым целым</span>. Стабильный геймплей, продуманные сборки, отзывчивое сообщество.',
         hero_btn_download: "Скачать лаунчер",
-        hero_btn_adventure: "Начать приключение",
         hero_btn_discord: "Discord сервер",
-        stat_players: "Игроков",
-        stat_tps: "Средний TPS",
-        stat_uptime: "Аптайм",
         servers_title: 'Выбери свой <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-egypt-400">путь</span>',
         server_hitech_desc: "Бесконечная энергия, автоматизация и высокие технологии. Строй огромные фабрики и доминируй с помощью техники.",
         server_hardtech_desc: "Настоящий хардкор с GregTech. Сложные цепочки крафта, продуманные механики. Только для смелых.",
@@ -878,12 +816,6 @@ const i18n = {
         dl_badge: "Начни играть",
         dl_title: 'Скачать <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-egypt-400">лаунчер</span>',
         dl_desc: "Установка в один клик. Лаунчер автоматически скачает Forge, моды и конфиги. Просто введи ник и играй.",
-        dl_btn: "Скачать для Windows",
-        dl_requirements: "Java скачивается автоматически · Windows 10+",
-        dl_verified: "Проверено VirusTotal · 70+ антивирусов",
-        dl_warn_title: "Браузер блокирует загрузку?",
-        dl_warn_body: "Лаунчер не подписан сертификатом, поэтому Chrome / SmartScreen могут показать предупреждение. Это <strong>не вирус</strong> — мы небольшой open-source проект. Жми <strong>Сохранить</strong> → <strong>Запустить в любом случае</strong>. Файл также доступен напрямую с <a href='https://github.com/damanoreshkan-beep/anubis-launcher/releases/latest' target='_blank' rel='noopener' class='text-brand-400 hover:text-brand-300 underline'>GitHub Releases</a>.",
-        dl_hash_title: "SHA-256 для проверки целостности",
         community_title: 'Присоединяйся к <span class="text-transparent bg-clip-text bg-gradient-to-r from-egypt-400 to-violet-400">сообществу</span>',
         community_discord_sub: "Чат, голос, ивенты",
         community_telegram_sub: "Новости и обновления",
@@ -921,11 +853,7 @@ const i18n = {
         nav_community: "Спільнота",
         hero_desc: 'Якісні модові сервери Minecraft, де <span class="text-brand-300 font-medium">технології та магія стають єдиним цілим</span>. Стабільний геймплей, продумані збірки, чуйна спільнота.',
         hero_btn_download: "Завантажити лаунчер",
-        hero_btn_adventure: "Розпочати пригоду",
         hero_btn_discord: "Discord сервер",
-        stat_players: "Гравців",
-        stat_tps: "Середній TPS",
-        stat_uptime: "Аптайм",
         servers_title: 'Обери свій <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-egypt-400">шлях</span>',
         server_hitech_desc: "Безмежна енергія, автоматизація та високі технології. Будуй величезні фабрики і домінуй за допомогою техніки.",
         server_hardtech_desc: "Справжній хардкор з GregTech. Складні ланцюжки крафту, продумані механіки. Тільки для сміливих.",
@@ -944,12 +872,6 @@ const i18n = {
         dl_badge: "Почни грати",
         dl_title: 'Завантажити <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-egypt-400">лаунчер</span>',
         dl_desc: "Встановлення в один клік. Лаунчер автоматично завантажить Forge, моди та конфіги. Просто введи нік та грай.",
-        dl_btn: "Завантажити для Windows",
-        dl_requirements: "Java завантажується автоматично · Windows 10+",
-        dl_verified: "Перевірено VirusTotal · 70+ антивірусів",
-        dl_warn_title: "Браузер блокує завантаження?",
-        dl_warn_body: "Лаунчер не підписаний сертифікатом, тому Chrome / SmartScreen можуть показати попередження. Це <strong>не вірус</strong> — ми невеликий open-source проєкт. Натисни <strong>Зберегти</strong> → <strong>Все одно запустити</strong>. Файл також доступний напряму з <a href='https://github.com/damanoreshkan-beep/anubis-launcher/releases/latest' target='_blank' rel='noopener' class='text-brand-400 hover:text-brand-300 underline'>GitHub Releases</a>.",
-        dl_hash_title: "SHA-256 для перевірки цілісності",
         community_title: 'Приєднуйся до <span class="text-transparent bg-clip-text bg-gradient-to-r from-egypt-400 to-violet-400">спільноти</span>',
         community_discord_sub: "Чат, голос, івенти",
         community_telegram_sub: "Новини та оновлення",
@@ -987,11 +909,7 @@ const i18n = {
         nav_community: "Community",
         hero_desc: 'Quality modded Minecraft servers where <span class="text-brand-300 font-medium">technology and magic become one</span>. Stable gameplay, thoughtful builds, responsive community.',
         hero_btn_download: "Download Launcher",
-        hero_btn_adventure: "Start the Adventure",
         hero_btn_discord: "Join Discord",
-        stat_players: "Players",
-        stat_tps: "Avg TPS",
-        stat_uptime: "Uptime",
         servers_title: 'Choose Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-egypt-400">Path</span>',
         server_hitech_desc: "Endless energy, automation and high technology. Build massive factories and dominate with tech.",
         server_hardtech_desc: "Real hardcore with GregTech. Complex crafting chains, thoughtful mechanics. Only for the brave.",
@@ -1010,12 +928,6 @@ const i18n = {
         dl_badge: "Get Started",
         dl_title: 'Download <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-egypt-400">Launcher</span>',
         dl_desc: "One click install. Our launcher automatically downloads Forge, mods, and configs. Just enter your nickname and play.",
-        dl_btn: "Download for Windows",
-        dl_requirements: "Java is downloaded automatically · Windows 10+",
-        dl_verified: "Verified by VirusTotal · 70+ antivirus engines",
-        dl_warn_title: "Browser blocks the download?",
-        dl_warn_body: "The launcher is unsigned, so Chrome / SmartScreen may warn you. This is <strong>not a virus</strong> — we're a small open-source project. Click <strong>Keep</strong> → <strong>Run anyway</strong>. The file is also available directly from <a href='https://github.com/damanoreshkan-beep/anubis-launcher/releases/latest' target='_blank' rel='noopener' class='text-brand-400 hover:text-brand-300 underline'>GitHub Releases</a>.",
-        dl_hash_title: "SHA-256 for integrity verification",
         community_title: 'Join the <span class="text-transparent bg-clip-text bg-gradient-to-r from-egypt-400 to-violet-400">Community</span>',
         community_discord_sub: "Chat, voice, events",
         community_telegram_sub: "News & updates",
@@ -1053,11 +965,7 @@ const i18n = {
         nav_community: "Community",
         hero_desc: 'Hochwertige Modded-Minecraft-Server, auf denen <span class="text-brand-300 font-medium">Technologie und Magie eins werden</span>. Stabiles Gameplay, durchdachte Builds, aktive Community.',
         hero_btn_download: "Launcher herunterladen",
-        hero_btn_adventure: "Abenteuer starten",
         hero_btn_discord: "Discord beitreten",
-        stat_players: "Spieler",
-        stat_tps: "Durchschn. TPS",
-        stat_uptime: "Verfügbarkeit",
         servers_title: 'Wähle deinen <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-egypt-400">Weg</span>',
         server_hitech_desc: "Endlose Energie, Automatisierung und Hochtechnologie. Baue riesige Fabriken und dominiere mit Technik.",
         server_hardtech_desc: "Echtes Hardcore mit GregTech. Komplexe Crafting-Ketten, durchdachte Mechaniken. Nur für Mutige.",
@@ -1076,12 +984,6 @@ const i18n = {
         dl_badge: "Jetzt starten",
         dl_title: 'Launcher <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-egypt-400">herunterladen</span>',
         dl_desc: "Ein-Klick-Installation. Unser Launcher lädt automatisch Forge, Mods und Configs herunter. Einfach Nickname eingeben und spielen.",
-        dl_btn: "Für Windows herunterladen",
-        dl_requirements: "Java wird automatisch heruntergeladen · Windows 10+",
-        dl_verified: "Geprüft von VirusTotal · 70+ Antivirenprogramme",
-        dl_warn_title: "Browser blockiert den Download?",
-        dl_warn_body: "Der Launcher ist unsigniert, daher können Chrome / SmartScreen eine Warnung anzeigen. Das ist <strong>kein Virus</strong> — wir sind ein kleines Open-Source-Projekt. Klicke <strong>Behalten</strong> → <strong>Trotzdem ausführen</strong>. Die Datei ist auch direkt von <a href='https://github.com/damanoreshkan-beep/anubis-launcher/releases/latest' target='_blank' rel='noopener' class='text-brand-400 hover:text-brand-300 underline'>GitHub Releases</a> verfügbar.",
-        dl_hash_title: "SHA-256 zur Integritätsprüfung",
         community_title: 'Tritt der <span class="text-transparent bg-clip-text bg-gradient-to-r from-egypt-400 to-violet-400">Community</span> bei',
         community_discord_sub: "Chat, Voice, Events",
         community_telegram_sub: "News & Updates",
@@ -1119,11 +1021,7 @@ const i18n = {
         nav_community: "Społeczność",
         hero_desc: 'Wysokiej jakości serwery Minecraft z modami, gdzie <span class="text-brand-300 font-medium">technologia i magia stają się jednym</span>. Stabilna rozgrywka, przemyślane buildy, aktywna społeczność.',
         hero_btn_download: "Pobierz launcher",
-        hero_btn_adventure: "Rozpocznij przygodę",
         hero_btn_discord: "Dołącz do Discord",
-        stat_players: "Graczy",
-        stat_tps: "Średni TPS",
-        stat_uptime: "Dostępność",
         servers_title: 'Wybierz swoją <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-egypt-400">ścieżkę</span>',
         server_hitech_desc: "Nieskończona energia, automatyzacja i zaawansowana technologia. Buduj ogromne fabryki i dominuj dzięki technice.",
         server_hardtech_desc: "Prawdziwy hardcore z GregTech. Złożone łańcuchy craftingu, przemyślane mechaniki. Tylko dla odważnych.",
@@ -1142,12 +1040,6 @@ const i18n = {
         dl_badge: "Zacznij grać",
         dl_title: 'Pobierz <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-egypt-400">launcher</span>',
         dl_desc: "Instalacja jednym kliknięciem. Nasz launcher automatycznie pobiera Forge, mody i konfiguracje. Po prostu wpisz nick i graj.",
-        dl_btn: "Pobierz dla Windows",
-        dl_requirements: "Java pobiera się automatycznie · Windows 10+",
-        dl_verified: "Zweryfikowano przez VirusTotal · 70+ antywirusów",
-        dl_warn_title: "Przeglądarka blokuje pobieranie?",
-        dl_warn_body: "Launcher nie jest podpisany certyfikatem, więc Chrome / SmartScreen mogą pokazać ostrzeżenie. To <strong>nie wirus</strong> — jesteśmy małym projektem open-source. Kliknij <strong>Zachowaj</strong> → <strong>Uruchom mimo to</strong>. Plik jest również dostępny bezpośrednio z <a href='https://github.com/damanoreshkan-beep/anubis-launcher/releases/latest' target='_blank' rel='noopener' class='text-brand-400 hover:text-brand-300 underline'>GitHub Releases</a>.",
-        dl_hash_title: "SHA-256 do weryfikacji integralności",
         community_title: 'Dołącz do <span class="text-transparent bg-clip-text bg-gradient-to-r from-egypt-400 to-violet-400">społeczności</span>',
         community_discord_sub: "Czat, głos, eventy",
         community_telegram_sub: "Aktualności i aktualizacje",
@@ -1310,22 +1202,6 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.15 });
 document.querySelectorAll('.fade-section').forEach(el => observer.observe(el));
-
-function animateCounter(el, target, duration = 2000) {
-    let start = 0;
-    const step = (ts) => {
-        if (!start) start = ts;
-        const progress = Math.min((ts - start) / duration, 1);
-        el.textContent = Math.floor(progress * target);
-        if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-}
-const statEl = document.getElementById('statPlayers');
-const statObserver = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) { animateCounter(statEl, 150); statObserver.disconnect(); }
-});
-statObserver.observe(statEl);
 
 // Частицы трёх цветов — золото, оранж, фиолет
 const container = document.getElementById('particles');
