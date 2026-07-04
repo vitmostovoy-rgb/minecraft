@@ -1,0 +1,9 @@
+/* Tailwind entry for the AnubisWorld landing site.
+   Compiled ahead of time into docs/site.css via `npm run build:css`.
+   Site-only custom CSS (particles, stars, FAQ, hero aura, etc.) lives
+   inline in docs/index.html <style>; the Anubis design-system classes
+   (.glass / .btn-glow / .gold-text / .card-hover) and :root palette
+   variables come from anubis-ds over <link> in <head>. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
