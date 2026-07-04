@@ -61,14 +61,14 @@
         /* .glass / .card-hover / .btn-glow now come from anubis-ds
            theme.css (linked in <head>). Site-only classes stay below. */
 
-        .fade-section { opacity:0; transform:translateY(30px); transition:opacity .7s,transform .7s; }
-        .fade-section.visible { opacity:1; transform:translateY(0); }
-
-        /* Hero entrance: kept invisible until Motion reveals them. Scoped
-           to .js-anim (added only when JS runs and motion is allowed), so
-           no-JS and prefers-reduced-motion users always see content. */
+        /* Entrance + scroll reveals: kept invisible until Motion reveals
+           them. Scoped to .js-anim (added only when JS runs and motion is
+           allowed), so no-JS and prefers-reduced-motion users always see
+           content. Stagger containers hide their children, not themselves. */
         .js-anim [data-reveal],
-        .js-anim [data-reveal-scale] { opacity: 0; }
+        .js-anim [data-reveal-scale],
+        .js-anim [data-inview],
+        .js-anim [data-inview-stagger] > * { opacity: 0; }
 
         .particles { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
         .particle {
@@ -476,12 +476,12 @@
 <!-- ─── Servers ─── -->
 <section id="servers" class="relative py-24 bg-grid">
     <div class="max-w-6xl mx-auto px-4">
-        <div class="text-center mb-16 fade-section">
+        <div class="text-center mb-16" data-inview>
             <span class="inline-block text-brand-400 text-sm font-semibold tracking-widest uppercase mb-3" data-i18n="nav_servers"></span>
             <h2 class="text-3xl sm:text-5xl font-bold" data-i18n-html="servers_title"></h2>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-6 fade-section">
+        <div class="grid md:grid-cols-3 gap-6" data-inview-stagger>
             <!-- HiTech — янтарно-оранжевый -->
             <div class="glass rounded-2xl p-8 card-hover relative group">
                 <div class="absolute inset-0 rounded-2xl bg-gradient-to-b from-brand-500/12 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -541,12 +541,12 @@
     <!-- Фоновое свечение -->
     <div class="absolute inset-0 bg-gradient-to-b from-brand-950/20 via-transparent to-violet-950/10"></div>
     <div class="relative max-w-6xl mx-auto px-4">
-        <div class="text-center mb-16 fade-section">
+        <div class="text-center mb-16" data-inview>
             <span class="inline-block text-brand-400 text-sm font-semibold tracking-widest uppercase mb-3" data-i18n="nav_features"></span>
             <h2 class="text-3xl sm:text-5xl font-bold" data-i18n-html="features_title"></h2>
         </div>
 
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 fade-section">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" data-inview-stagger>
             <div class="glass rounded-2xl p-6 text-center card-hover group">
                 <div class="w-12 h-12 rounded-xl bg-brand-500/15 flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-500/25 transition-colors">
                     <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7"/></svg>
@@ -590,11 +590,11 @@
 <section id="reviews" class="relative py-24 bg-grid">
     <div class="absolute inset-0 bg-gradient-to-b from-transparent via-violet-950/15 to-transparent pointer-events-none"></div>
     <div class="relative max-w-6xl mx-auto px-4">
-        <div class="text-center mb-16 fade-section">
+        <div class="text-center mb-16" data-inview>
             <h2 class="text-3xl sm:text-5xl font-bold" data-i18n-html="reviews_title"></h2>
         </div>
 
-        <div class="fade-section">
+        <div data-inview>
             <anubis-reviews
                 supabase-url="https://ckfinpywlpllvhvzagnw.supabase.co"
                 supabase-key="sb_publishable_Bl6csDnCJ5LIJsIsCafMYQ_5zwLTgvR"
@@ -612,7 +612,7 @@
      so revisits paint instantly. -->
 <section id="download" class="relative py-24 bg-grid">
     <div class="absolute inset-0 bg-gradient-to-b from-transparent via-brand-950/20 to-transparent"></div>
-    <div class="relative max-w-4xl mx-auto px-4 fade-section">
+    <div class="relative max-w-4xl mx-auto px-4" data-inview>
         <div class="text-center mb-10">
             <span class="inline-block text-brand-400 text-sm font-semibold tracking-widest uppercase mb-3" data-i18n="dl_badge"></span>
             <h2 class="text-3xl sm:text-5xl font-bold mb-6" data-i18n-html="dl_title"></h2>
@@ -628,12 +628,12 @@
 <section id="faq" class="relative py-24">
     <div class="absolute inset-0 bg-gradient-to-b from-transparent via-brand-950/15 to-transparent pointer-events-none"></div>
     <div class="relative max-w-3xl mx-auto px-4">
-        <div class="text-center mb-12 fade-section">
+        <div class="text-center mb-12" data-inview>
             <span class="inline-block text-brand-400 text-sm font-semibold tracking-widest uppercase mb-3" data-i18n="faq_badge"></span>
             <h2 class="text-3xl sm:text-5xl font-bold" data-i18n-html="faq_title"></h2>
         </div>
 
-        <div class="space-y-3 fade-section">
+        <div class="space-y-3" data-inview-stagger>
             <details class="faq-item">
                 <summary>
                     <span data-i18n="faq_q1"></span>
@@ -690,7 +690,7 @@
 <!-- ─── Community ─── -->
 <section id="community" class="relative py-24">
     <div class="absolute inset-0 bg-gradient-to-b from-transparent via-violet-950/10 to-transparent pointer-events-none"></div>
-    <div class="relative max-w-4xl mx-auto px-4 text-center fade-section">
+    <div class="relative max-w-4xl mx-auto px-4 text-center" data-inview>
         <span class="inline-block text-brand-400 text-sm font-semibold tracking-widest uppercase mb-3" data-i18n="nav_community"></span>
         <h2 class="text-3xl sm:text-5xl font-bold mb-12" data-i18n-html="community_title"></h2>
 
@@ -1219,10 +1219,8 @@ document.addEventListener('anubis-open-donate', e => {
     if (e && e.detail) e.detail.handled = true;
 });
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.15 });
-document.querySelectorAll('.fade-section').forEach(el => observer.observe(el));
+// Section scroll-reveals are handled by Motion's inView() in the module
+// script below (was a hand-rolled IntersectionObserver here).
 
 // Частицы трёх цветов — золото, оранж, фиолет
 const container = document.getElementById('particles');
@@ -1253,24 +1251,26 @@ if (starsContainer) {
 }
 </script>
 
-<!-- Motion (self-hosted, WAAPI hybrid engine) — hero entrance reveal +
-     scroll-linked parallax. Replaces Rellax; no runtime CDN. Bundle is
-     built from src/motion-entry.js via `npm run build:motion`. -->
+<!-- Motion (self-hosted, WAAPI hybrid engine) — hero entrance, section
+     scroll-reveals and scroll-linked parallax. Replaces Rellax and the
+     hand-rolled IntersectionObserver; no runtime CDN. Bundle is built
+     from src/motion-entry.js via `npm run build:motion`. -->
 <script type="module">
-    import { animate, scroll, stagger } from './vendor/motion.min.js'
+    import { animate, scroll, inView, stagger } from './vendor/motion.min.js'
     // Tell the FOUC guard (in <head>) the module is alive.
     document.documentElement.setAttribute('data-anim-ready', '')
 
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
         const hero = document.querySelector('section')
+        const EASE = [0.16, 1, 0.3, 1]
 
         // Staggered entrance for the hero text column.
         animate('[data-reveal]', { opacity: [0, 1], y: [24, 0] },
-            { duration: 0.7, delay: stagger(0.1), ease: [0.16, 1, 0.3, 1] })
+            { duration: 0.7, delay: stagger(0.1), ease: EASE })
 
         // Portrait fades and settles in alongside the text.
         animate('[data-reveal-scale]', { opacity: [0, 1], scale: [0.94, 1] },
-            { duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] })
+            { duration: 0.9, delay: 0.25, ease: EASE })
 
         // Scroll-linked parallax for the decorative layers (was Rellax).
         // Each layer's data-rellax-speed drives how far it drifts as the
@@ -1282,6 +1282,19 @@ if (starsContainer) {
                 { target: hero, offset: ['start start', 'end start'] }
             )
         })
+
+        // Section reveals (was the IntersectionObserver .fade-section
+        // fade). Returning nothing from the inView callback makes Motion
+        // unobserve the element, so each reveal runs exactly once.
+        const REVEAL_MARGIN = '0px 0px -12% 0px'
+        inView('[data-inview]', (el) => {
+            animate(el, { opacity: [0, 1], y: [24, 0] }, { duration: 0.6, ease: EASE })
+        }, { margin: REVEAL_MARGIN })
+
+        inView('[data-inview-stagger]', (el) => {
+            animate([...el.children], { opacity: [0, 1], y: [24, 0] },
+                { duration: 0.6, delay: stagger(0.08), ease: EASE })
+        }, { margin: REVEAL_MARGIN })
     }
 </script>
 </body>
