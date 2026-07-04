@@ -95,6 +95,18 @@
             background: linear-gradient(90deg, transparent, rgba(168,85,247,.45), rgba(34,211,238,.35), transparent);
         }
 
+        /* Nav links: violet→cyan underline that wipes in on hover. */
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content:''; position:absolute; left:0; right:0; bottom:-4px; height:2px;
+            border-radius:2px;
+            background: linear-gradient(90deg, #a855f7, #22d3ee);
+            transform: scaleX(0); transform-origin: left;
+            transition: transform .25s ease;
+        }
+        .nav-link:hover::after,
+        .nav-link:focus-visible::after { transform: scaleX(1); }
+
         /* Декоративные линии в hero — пурпурно-бирюзовые */
         .hero-line {
             position:absolute;
@@ -290,14 +302,14 @@
             <span class="text-lg font-bold tracking-tight">Anubis<span class="text-brand-400">World</span></span>
         </a>
         <div class="hidden lg:flex items-center gap-5 xl:gap-6 text-[13px] xl:text-sm font-medium text-gray-400">
-            <a href="#servers"   class="hover:text-brand-300 transition" data-i18n="nav_servers"></a>
-            <a href="#features"  class="hover:text-brand-300 transition" data-i18n="nav_features"></a>
-            <a href="#reviews"   class="hover:text-brand-300 transition" data-i18n="nav_reviews"></a>
-            <a href="#download"  class="hover:text-brand-300 transition" data-i18n="nav_download"></a>
-            <a href="#cabinet"   class="hover:text-brand-300 transition" data-i18n="nav_cabinet"></a>
-            <a href="#donate"    class="hover:text-brand-300 transition" data-i18n="nav_donate"></a>
-            <a href="#faq"       class="hover:text-brand-300 transition" data-i18n="nav_faq"></a>
-            <a href="#community" class="hover:text-brand-300 transition" data-i18n="nav_community"></a>
+            <a href="#servers"   class="nav-link hover:text-brand-300 transition" data-i18n="nav_servers"></a>
+            <a href="#features"  class="nav-link hover:text-brand-300 transition" data-i18n="nav_features"></a>
+            <a href="#reviews"   class="nav-link hover:text-brand-300 transition" data-i18n="nav_reviews"></a>
+            <a href="#download"  class="nav-link hover:text-brand-300 transition" data-i18n="nav_download"></a>
+            <a href="#cabinet"   class="nav-link hover:text-brand-300 transition" data-i18n="nav_cabinet"></a>
+            <a href="#donate"    class="nav-link hover:text-brand-300 transition" data-i18n="nav_donate"></a>
+            <a href="#faq"       class="nav-link hover:text-brand-300 transition" data-i18n="nav_faq"></a>
+            <a href="#community" class="nav-link hover:text-brand-300 transition" data-i18n="nav_community"></a>
         </div>
         <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
             <!-- Language switcher — visible on every breakpoint. -->
@@ -1295,6 +1307,36 @@ if (starsContainer) {
             animate([...el.children], { opacity: [0, 1], y: [24, 0] },
                 { duration: 0.6, delay: stagger(0.08), ease: EASE })
         }, { margin: REVEAL_MARGIN })
+
+        // FAQ accordion: animate the body's height + fade instead of the
+        // native <details> jump. We drive `open` ourselves so the close
+        // animation can finish before the content is removed. Keyboard
+        // (Enter/Space fires a click) and a11y semantics are preserved.
+        document.querySelectorAll('.faq-item').forEach((item) => {
+            const summary = item.querySelector('summary')
+            const body = item.querySelector('.faq-body')
+            if (!summary || !body) return
+            summary.addEventListener('click', (e) => {
+                e.preventDefault()
+                if (item.dataset.animating) return
+                item.dataset.animating = '1'
+                const release = () => {
+                    body.style.height = ''; body.style.opacity = ''; body.style.overflow = ''
+                    delete item.dataset.animating
+                }
+                if (item.open) {
+                    body.style.overflow = 'hidden'
+                    animate(body, { height: [body.scrollHeight + 'px', '0px'], opacity: [1, 0] },
+                        { duration: 0.28, ease: EASE }).then(() => { item.open = false; release() })
+                } else {
+                    item.open = true
+                    body.style.overflow = 'hidden'
+                    body.style.height = '0px'
+                    animate(body, { height: ['0px', body.scrollHeight + 'px'], opacity: [0, 1] },
+                        { duration: 0.32, ease: EASE }).then(release)
+                }
+            })
+        })
     }
 </script>
 </body>
