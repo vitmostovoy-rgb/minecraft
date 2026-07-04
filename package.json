@@ -5,12 +5,18 @@
   "description": "AnubisWorld landing site — static, served from docs/ via GitHub Pages. Tailwind is compiled ahead of time into docs/site.css (no runtime CDN).",
   "scripts": {
     "build:css": "tailwindcss -i ./tailwind.input.css -o ./docs/site.css --minify",
-    "watch:css": "tailwindcss -i ./tailwind.input.css -o ./docs/site.css --watch"
+    "watch:css": "tailwindcss -i ./tailwind.input.css -o ./docs/site.css --watch",
+    "build:motion": "esbuild src/motion-entry.js --bundle --format=esm --minify --outfile=docs/vendor/motion.min.js",
+    "build": "npm run build:css && npm run build:motion"
   },
   "devDependencies": {
     "@anubis/ds": "github:damanoreshkan-beep/anubis-ds",
     "autoprefixer": "^10.4.20",
+    "esbuild": "^0.28.1",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17"
+  },
+  "dependencies": {
+    "motion": "^12.42.2"
   }
 }
